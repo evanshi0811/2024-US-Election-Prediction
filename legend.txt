@@ -1,0 +1,20 @@
+dname: Name of the Democratic/Jacksonian candidate
+rname: Name of the Republican/Whig candidate
+year: Year the election took place
+dage: Age of the Democratic/Jacksonian candidate during the election
+rage: Age of the Republican/Whig candidate during the election
+dincumb: Whether the Democratic/Jacksonian candidate was the incumbent president (Yes=1, No=0)
+rincumb: Whether the Republican/Whig candidate was the incumbent president (Yes=1, No=0)
+dpincumb: Whether a Democratic/Jacksonian was the incumbent president (Yes=1, No=0)
+rpincumb: Whether a Republican/Whig was the incumbent president (Yes=1, No=0)
+dsenate: Proportion of Senate members who were Democratic/Jacksonian before the election
+rsenate: Proportion of Senate members who were Republican/Whig before the election
+dhouse: Proportion of House of Representative members who were Democratic/Jacksonian before the election
+rhouse: Proportion of House of Representative members who were Republican/Whig before the election
+war: Whether the United States was at war during the election (Yes=1, No=0) (according to the US Department of Veterans Affairs https://www.va.gov/opa/publications/factsheets/fs_americas_wars.pdf)
+delectoral: Proportion of electoral votes the Democratic/Jacksonian candidate won
+relectoral: Proportion of electoral votes the Republican/Whig candidate won
+dstates: Proportion of states the Democratic/Jacksonian candidate won (Once DC received electors, I considered them a state)
+rstates: Proportion of states the Republican/Whig candidate won (Once DC received electors, I considered them a state)
+dpopular: Popular vote the Democratic/Jacksonian candidate won
+rpopular: Popular vote the Republican/Whig candidate won
