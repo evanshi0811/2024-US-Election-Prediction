@@ -1,23 +1,38 @@
+#import libraries
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
-# Load the data
+#load data from csv
 df = pd.read_csv('electiondata.csv')
 
-# Select the relevant features
+#select relevant data
 stats = df[['year','dage','rage','dincumb','rincumb','dpincumb','rpincumb','dsenate','dhouse','rhouse','war']]
-
-# Split into training data
-stats_train = stats.iloc[:-1]
 results = df[['delectoral','relectoral','dstates','rstates','dpopular','rpopular']]
-results_train = results.iloc[:-1]
+stats = stats.iloc[:-1]
+results = results.iloc[:-1]
+finalstats = stats.iloc[-1]
+finalstats = pd.DataFrame([finalstats], columns=stats.columns)
 
-# Initialize and train the model
-regr = RandomForestRegressor()
-regr.fit(stats_train, results_train)  # Pass the DataFrame directly without raveling
+#create error array
+error = np.zeros(results.shape[1])
 
-# Predict the last row
-y_pred = regr.predict(stats.iloc[-1].values.reshape(1, -1))
+#test the model on each row
+model = LinearRegression()
+for x in range(len(stats)):
+    newstats = np.delete(stats.to_numpy(), x, axis=0)
+    newresults = np.delete(results.to_numpy(), x, axis=0)
+    for y in range(results.shape[1]):
+        model.fit(newstats, newresults[:, y])
+        error[y] += (model.predict(stats.iloc[x].values.reshape(1, -1)).item() - results.iloc[x, y]) ** 2
 
-# Print the prediction
-print(y_pred)
+#calculate RMSE
+error = error / len(stats)
+error = np.sqrt(error)
+
+#print RMSE
+print(error)
+
+for y in range(results.shape[1]):
+    model.fit(stats, results.to_numpy()[:, y])
+    print(model.predict(finalstats).item())
