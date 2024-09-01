@@ -35,4 +35,4 @@ print(error)
 #predict for new data
 for y in range(results.shape[1]):
     model.fit(stats, results.to_numpy()[:, y])
-    print(model.predict(finalstats).item())
+    print(model.predict(finalstats).item(), end=" ")
