@@ -27,12 +27,12 @@ for x in range(len(stats)):
         error[y] += (model.predict(stats.iloc[x].values.reshape(1, -1)).item() - results.iloc[x, y]) ** 2
 
 #calculate RMSE
-error = error / len(stats)
-error = np.sqrt(error)
+error = np.sqrt(error / len(stats))
 
 #print RMSE
 print(error)
 
+#predict for new data
 for y in range(results.shape[1]):
     model.fit(stats, results.to_numpy()[:, y])
     print(model.predict(finalstats).item())
