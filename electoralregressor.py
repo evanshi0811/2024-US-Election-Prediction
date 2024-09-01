@@ -8,7 +8,7 @@ df = pd.read_csv('electiondata.csv')
 
 #select relevant data
 stats = df[['year','dage','rage','dincumb','rincumb','dpincumb','rpincumb','dsenate','dhouse','rhouse','war']]
-results = df[['delectoral','relectoral','dstates','rstates','dpopular','rpopular']]
+results = df[['delectoral','relectoral']]
 finalstats = stats.iloc[-1]
 finalstats = pd.DataFrame([finalstats], columns=stats.columns)
 stats = stats.iloc[:-1]
@@ -22,9 +22,10 @@ model = LinearRegression()
 for x in range(len(stats)):
     newstats = np.delete(stats.to_numpy(), x, axis=0)
     newresults = np.delete(results.to_numpy(), x, axis=0)
-    for y in range(results.shape[1]):
-        model.fit(newstats, newresults[:, y])
-        error[y] += (model.predict(stats.iloc[x].values.reshape(1, -1)).item() - results.iloc[x, y]) ** 2
+    model.fit(newstats, newresults)
+    prediction = model.predict(stats.iloc[x].values.reshape(1, -1))
+    error[0] += (prediction[0, 0] - results.iloc[x, 0]) ** 2
+    error[1] += (prediction[0, 1] - results.iloc[x, 1]) ** 2
 
 #calculate RMSE
 error = np.sqrt(error / len(stats))
@@ -33,6 +34,5 @@ error = np.sqrt(error / len(stats))
 print(error)
 
 #predict for new data
-for y in range(results.shape[1]):
-    model.fit(stats, results.to_numpy()[:, y])
-    print(model.predict(finalstats).item())
+model.fit(stats, results)
+print(model.predict(finalstats))
