@@ -1,7 +1,7 @@
 #import libraries
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import ElasticNet
 
 #load data from csv
 df = pd.read_csv('electiondata.csv')
@@ -18,7 +18,7 @@ results = results.iloc[:-1]
 error = np.zeros(results.shape[1])
 
 #test the model on each row
-model = LinearRegression()
+model = ElasticNet()
 for x in range(len(stats)):
     newstats = np.delete(stats.to_numpy(), x, axis=0)
     newresults = np.delete(results.to_numpy(), x, axis=0)
