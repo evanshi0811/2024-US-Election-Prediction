@@ -1,7 +1,7 @@
 #import libraries
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import BayesianRidge
+from sklearn.ensemble import GradientBoostingRegressor
 
 #load data from csv
 df = pd.read_csv('electiondata.csv')
@@ -18,7 +18,7 @@ results = results.iloc[:-1]
 error = np.zeros(results.shape[1])
 
 #test the model on each row
-model = BayesianRidge()
+model = GradientBoostingRegressor(loss='absolute_error',criterion='friedman_mse',random_state=0)
 for x in range(len(stats)):
     newstats = np.delete(stats.to_numpy(), x, axis=0)
     newresults = np.delete(results.to_numpy(), x, axis=0)
@@ -35,4 +35,4 @@ print(error)
 #predict for new data
 for y in range(results.shape[1]):
     model.fit(stats, results.to_numpy()[:, y])
-    print(model.predict(finalstats).item(), end=" ")
+    print(model.predict(finalstats).item(), end=",")
