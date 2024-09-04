@@ -37,5 +37,5 @@ NearestCentroid,1,0.4489795918367347
 NearestCentroid(-year),1,0.4897959183673469
 RidgeClassifier,0,0.4897959183673469
 RidgeClassifier(-year),0,0.46938775510204084
-MLPClassifier(identity,sgd),0,0
+MLPClassifier(identity+sgd),0,0
 MLPClassifier(-year),0,0.30612244897959184
